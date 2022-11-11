@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { domain } from '@codeet/domain';
 
 const StyledPage = styled.div`
   .page {
@@ -11,6 +12,7 @@ export function Index() {
    *
    * Note: The corresponding styles are in the ./index.styled-components file.
    */
+  console.log(domain());
   return (
     <StyledPage>
       <div className="wrapper">

@@ -11,6 +11,7 @@
   "dependencies": {
     "@nrwl/next": "15.0.13",
     "@prisma/client": "4.6.1",
+    "bcryptjs": "^2.4.3",
     "core-js": "^3.6.5",
     "next": "13.0.0",
     "react": "18.2.0",
@@ -19,6 +20,7 @@
     "regenerator-runtime": "0.13.7",
     "styled-components": "5.3.5",
     "tslib": "^2.3.0",
+    "uuid": "^9.0.0",
     "zod": "^3.19.1"
   },
   "devDependencies": {
@@ -32,12 +34,14 @@
     "@nrwl/web": "15.0.13",
     "@nrwl/workspace": "15.0.13",
     "@testing-library/react": "13.4.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/jest": "28.1.1",
     "@types/node": "16.11.7",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "@types/react-is": "17.0.3",
     "@types/styled-components": "5.1.26",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "babel-jest": "28.1.1",

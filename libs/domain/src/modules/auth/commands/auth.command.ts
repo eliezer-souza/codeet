@@ -1,4 +1,4 @@
-import { compare } from 'bcryptjs';
+import { compare, hashSync } from 'bcryptjs';
 import { command } from '../../../shared/command';
 import { prismaClient } from '../../../shared/prisma-client';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,7 +29,13 @@ export const register = command(
   })
 ).handler(async ({ firstName, lastName, email, password }) => {
   const user = await prismaClient.user.create({
-    data: { id: uuidv4(), firstName, lastName, email, password },
+    data: {
+      id: uuidv4(),
+      firstName,
+      lastName,
+      email,
+      password: hashSync(password),
+    },
   });
 
   return {

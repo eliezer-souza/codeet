@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String        @id
+  firstName   String
+  lastName    String
+  email       String        @unique
+  password    String
+  urlPhoto    String?
+  Group       Group[]       @relation("administrator")
+  Member      Member[]
+  Participant Participant[]
+}
+
+model Group {
+  id              String   @id
+  name            String   @unique
+  description     String
+  details         String
+  urlLogo         String?
+  administratorId String
+  administrator   User     @relation("administrator", fields: [administratorId], references: [id])
+  Member          Member[]
+  Event           Event[]
+}
+
+model Member {
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id])
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  @@id([groupId, userId])
+}
+
+model Event {
+  id          String        @id
+  name        String
+  details     String
+  date        DateTime
+  canceled    Boolean       @default(false)
+  finished    Boolean       @default(false)
+  venue       Json
+  groupId     String
+  group       Group         @relation(fields: [groupId], references: [id])
+  Participant Participant[]
+}
+
+model Participant {
+  eventId String
+  event   Event  @relation(fields: [eventId], references: [id])
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  @@id([eventId, userId])
+}

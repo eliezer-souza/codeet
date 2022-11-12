@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codeet/domain": ["libs/domain/src/index.ts"]
+      "@codeet/domain": ["libs/domain/src/index.ts"],
+      "@codeet/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

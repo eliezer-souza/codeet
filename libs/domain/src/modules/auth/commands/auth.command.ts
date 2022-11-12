@@ -1,8 +1,9 @@
 import { compare, hashSync } from 'bcryptjs';
-import { command } from '../../../shared/command';
-import { prismaClient } from '../../../shared/prisma-client';
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
+
+import { command } from '../../../shared/command';
+import { prismaClient } from '../../../shared/prisma-client';
 
 export const login = command(
   z.object({ email: z.string(), password: z.string() })

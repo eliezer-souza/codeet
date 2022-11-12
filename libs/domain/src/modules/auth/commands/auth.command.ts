@@ -6,7 +6,7 @@ import { command } from '../../../shared/command';
 import { prismaClient } from '../../../shared/prisma-client';
 
 export const login = command(
-  z.object({ email: z.string(), password: z.string() })
+  z.object({ email: z.string().email().min(1), password: z.string().min(6) })
 ).handler(async ({ email, password }) => {
   const user = await prismaClient.user.findFirst({
     where: { email },
@@ -23,10 +23,10 @@ export const login = command(
 
 export const register = command(
   z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    email: z.string(),
-    password: z.string(),
+    firstName: z.string().min(1),
+    lastName: z.string().min(1),
+    email: z.string().email().min(1),
+    password: z.string().min(6),
   })
 ).handler(async ({ firstName, lastName, email, password }) => {
   const user = await prismaClient.user.create({

@@ -10,7 +10,7 @@ export const button = recipe({
     whiteSpace: 'nowrap',
     verticalAlign: 'middle',
     lineHeight: '1.25',
-    fontWeight: theme.font.style.bold,
+    fontFamily: theme.font.family,
     borderRadius: theme.shape.borderRadius,
     transition: '0.25s',
 

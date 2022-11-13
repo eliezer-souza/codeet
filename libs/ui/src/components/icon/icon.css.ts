@@ -1,7 +1,7 @@
-import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
+import { recipe } from '@vanilla-extract/recipes';
 import { theme } from '../../theme/theme.css';
 
-const iconStyle = recipe({
+export const iconStyle = recipe({
   base: {
     color: 'inherit',
   },
@@ -24,5 +24,3 @@ const iconStyle = recipe({
   }
 });
 
-export const icon = (name: string, style?: RecipeVariants<typeof iconStyle>) =>
-  `${name} ${iconStyle(style)}`;

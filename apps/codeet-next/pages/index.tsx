@@ -1,4 +1,4 @@
-import { button } from '@codeet/ui';
+import { button, icon,  } from '@codeet/ui';
 
 export function Index() {
   /*
@@ -9,6 +9,7 @@ export function Index() {
 
   return (
     <button disabled className={button({ full: true, type: 'solid' })}>
+      <i className={icon('ri-admin-line')} />
       Sign in
     </button>
   );

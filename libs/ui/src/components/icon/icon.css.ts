@@ -1,7 +1,7 @@
 import { recipe } from '@vanilla-extract/recipes';
 import { theme } from '../../theme/theme.css';
 
-export const iconStyle = recipe({
+export const icon_style = recipe({
   base: {
     color: 'inherit',
   },
@@ -19,7 +19,6 @@ export const iconStyle = recipe({
   },
 
   defaultVariants: {
-    primary: true,
     sizes: 'md'
   }
 });

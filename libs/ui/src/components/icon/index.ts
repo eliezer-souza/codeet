@@ -1,5 +1,5 @@
 import { RecipeVariants } from "@vanilla-extract/recipes";
-import { iconStyle } from "./icon.css";
+import { icon_style } from "./icon.css";
 
-export const icon = (name: string, style?: RecipeVariants<typeof iconStyle>) =>
-  `${name} ${iconStyle(style)}`;
+export const icon = (name: string, style?: RecipeVariants<typeof icon_style>) =>
+  `${name} ${icon_style(style)}`;

@@ -1,4 +1,8 @@
-import { button } from '@codeet/ui';
+import {
+  button,
+  icon,
+  input,
+} from '@codeet/ui';
 
 export function Index() {
   /*
@@ -8,9 +12,15 @@ export function Index() {
    */
 
   return (
-    <button disabled className={button({ full: true, type: 'solid' })}>
-      Sign in
-    </button>
+    <div>
+      <button disabled className={button({ full: true, type: 'solid' })}>
+        <i className={icon('ri-admin-line')} />
+        Sign in
+      </button>
+      <div className={input.wrapper()}>
+        <input className={input.style} placeholder="Password" />
+      </div>
+    </div>
   );
 }
 

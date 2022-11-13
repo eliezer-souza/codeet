@@ -9,6 +9,7 @@ const inputStyle = style({
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   outline: 'none',
+  fontFamily: theme.font.family,
 
   '::placeholder': {
     color: theme.color.gray.main,
@@ -84,6 +85,7 @@ const input_icon = style({
 const input_label = recipe({
   base: {
     color: theme.color.gray.dark,
+    fontFamily: theme.font.family,
   },
 
   variants: {

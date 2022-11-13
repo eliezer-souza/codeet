@@ -17,6 +17,7 @@ export function Index() {
         <i className={icon('ri-admin-line')} />
         Sign in
       </button>
+      <label className={input.label({ error: true })}>Password</label>
       <div className={input.wrapper()}>
         <input className={input.style} placeholder="Password" />
       </div>

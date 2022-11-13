@@ -81,9 +81,54 @@ const input_icon = style({
   color: theme.color.gray.main,
 });
 
+const input_label = recipe({
+  base: {
+    color: theme.color.gray.dark,
+  },
+
+  variants: {
+    size: {
+      xs: {
+        fontSize: '0.75rem',
+        lineHeight: '1rem',
+      },
+      sm: {
+        fontSize: '0.875rem',
+        lineHeight: '1.25rem',
+      },
+      md: {
+        fontSize: '1rem',
+        lineHeight: '1.5rem',
+      },
+      lg: {
+        fontSize: '1.125rem',
+        lineHeight: '1.75rem',
+      },
+    },
+    uppercase: {
+      true: { textTransform: 'uppercase' },
+    },
+    error: {
+      true: { color: theme.color.pink },
+    },
+    truncate: {
+      true: {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+      },
+    },
+  },
+
+  defaultVariants: {
+    size: 'md',
+  },
+});
+
 export const input = {
   style: inputStyle,
   wrapper: input_wrapper,
   action: input_action,
   icon: input_icon,
+  label: input_label,
 };

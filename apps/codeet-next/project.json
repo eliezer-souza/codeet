@@ -10,7 +10,8 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/codeet-next",
-        "outputPath": "dist/apps/codeet-next"
+        "outputPath": "dist/apps/codeet-next",
+        "postcssConfig": "apps/codeet-next/postcss.config.js"
       },
       "configurations": {
         "development": {

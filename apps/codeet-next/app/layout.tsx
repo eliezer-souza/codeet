@@ -20,7 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               </Link>
               <nav className="flex items-center gap-6 sm:gap-8">
                 <Link
-                  href="/"
+                  href="/groups"
                   className="text-sm font-medium hover:text-primary"
                 >
                   Groups

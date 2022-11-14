@@ -18,9 +18,6 @@ module.exports = {
     fill: {
       none: 'none',
     },
-    stroke: (theme) => ({
-      white: theme('colors.white'),
-    }),
     extend: {
       colors: {
         ...colors,

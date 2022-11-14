@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 export default function LandingPage() {
   return (
     <section className="container grid items-center justify-center gap-6 pt-8 md:pt-12 lg:pt-24 px-24">
-      <div className="flex flex-col items-start gap-4 md:max-w-[800px]">
+      <div className="flex flex-col items-start gap-4 md:max-w-[960px]">
         <h1 className="text-3xl font-black leading-[1.1] sm:text-4xl md:text-6xl">
           Find the most exciting
           <span className="block font-black text-lightPrimary">

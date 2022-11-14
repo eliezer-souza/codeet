@@ -11,7 +11,7 @@ export function command<Schema extends z.ZodTypeAny>(schema?: Schema) {
           args[0] as TypeOf<Schema>
         );
 
-        if (!validationSchema.success) {
+        if (validationSchema.success === false) {
           return {
             success: false,
             errors: validationSchema.error.issues.map(

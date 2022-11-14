@@ -26,7 +26,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   Groups
                 </Link>
                 <Link
-                  href="/"
+                  href="/events"
                   className="text-sm font-medium hover:text-primary"
                 >
                   Events

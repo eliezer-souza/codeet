@@ -14,7 +14,10 @@ export default async function EventInformation({
 }: EventInformationProps) {
   const {
     data: { name, details, date, venue, group, Participant },
+    ...rest
   } = await EventCommands.getEventById({ id: eventId });
+
+  console.log(rest);
 
   const formattedDate = new Intl.DateTimeFormat('en-US', {
     dateStyle: 'full',

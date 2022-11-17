@@ -17,7 +17,9 @@ export default async function EventInformation({
     ...rest
   } = await EventCommands.getEventById({ id: eventId });
 
-  console.log(rest);
+  if (!rest.success) {
+    return <div>{rest.errors}</div>
+  }
 
   const formattedDate = new Intl.DateTimeFormat('en-US', {
     dateStyle: 'full',

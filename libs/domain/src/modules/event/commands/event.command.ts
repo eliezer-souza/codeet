@@ -39,5 +39,9 @@ export const getAllEvents = command().handler(
 export const getEventById = command(
   z.object({ id: z.string().uuid().min(1) })
 ).handler(
-  async ({ id }) => await prismaClient.event.findUnique({ where: { id } })
+  async ({ id }) =>
+    await prismaClient.event.findUnique({
+      where: { id },
+      include: { Participant: { include: { user: true } }, group: true },
+    })
 );

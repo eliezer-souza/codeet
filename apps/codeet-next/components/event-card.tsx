@@ -1,4 +1,5 @@
 import { Calendar, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 export type Venue = {
   street: string;
@@ -15,7 +16,7 @@ export type EventCardProps = {
   venue: Venue;
 };
 
-export default function EventCard({ name, date, venue }: EventCardProps) {
+export default function EventCard({ id, name, date, venue }: EventCardProps) {
   const formattedDate = new Intl.DateTimeFormat('en-US', {
     dateStyle: 'full',
     timeStyle: 'short',
@@ -47,9 +48,9 @@ export default function EventCard({ name, date, venue }: EventCardProps) {
             {venue.street}
           </p>
         </div>
-        <button className="elative inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+        <Link href={`events/${id}`} className="inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
           More Details
-        </button>
+        </Link>
       </div>
     </div>
   );

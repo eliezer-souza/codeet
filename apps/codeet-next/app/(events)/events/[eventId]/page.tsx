@@ -13,7 +13,7 @@ export default async function EventInformation({
   params: { eventId },
 }: EventInformationProps) {
   const {
-    data: { name, details, date, venue, group, Participant },
+    data: { name, details, date, venue },
     ...rest
   } = await EventCommands.getEventById({ id: eventId });
   

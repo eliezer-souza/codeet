@@ -12,15 +12,16 @@ type EventInformationProps = {
 export default async function EventInformation({
   params: { eventId },
 }: EventInformationProps) {
-  return <div>teste {eventId}</div>;
-  // const {
-  //   data: { name, details, date, venue, group, Participant },
-  //   ...rest
-  // } = await EventCommands.getEventById({ id: eventId });
+  const {
+    data: { name, details, date, venue, group, Participant },
+    ...rest
+  } = await EventCommands.getEventById({ id: eventId });
+  
+  if (!rest.success) {
+    throw new Error(rest.errors.join(','));
+  }
 
-  // if (!rest.success) {
-  //   return <div>{rest.errors}</div>
-  // }
+  return <div>teste {eventId}</div>;
 
   // const formattedDate = new Intl.DateTimeFormat('en-US', {
   //   dateStyle: 'full',

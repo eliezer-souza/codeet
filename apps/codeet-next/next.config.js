@@ -9,6 +9,7 @@ const { withNx } = require('@nrwl/next/plugins/with-nx');
 const nextConfig = {
   experimental: {
     appDir: true,
+    serverComponentsExternalPackages: ['@prisma/client'],
   },
   nx: {
     // Set this to true if you would like to to use SVGR

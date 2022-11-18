@@ -8,10 +8,9 @@ export const getAllUsers = command().handler(
     await prismaClient.user.findMany({
       select: {
         id: true,
-        firstName: true,
-        lastName: true,
+        name: true,
         email: true,
-        urlPhoto: true,
+        image: true,
       },
     })
 );
@@ -24,10 +23,9 @@ export const getUserById = command(
       where: { id },
       select: {
         id: true,
-        firstName: true,
-        lastName: true,
+        name: true,
         email: true,
-        urlPhoto: true,
+        image: true,
       },
     })
 );

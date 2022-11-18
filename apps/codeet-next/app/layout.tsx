@@ -2,12 +2,16 @@ import '../theme/global.css';
 
 import Link from 'next/link';
 import { Logo } from '../components/logo';
+import { getUserSession } from '../lib/session';
+import UserNav from '../components/user-nav';
 
 type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const user = await getUserSession();
+
   return (
     <html lang="en">
       <body>
@@ -34,12 +38,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
               </nav>
             </div>
             <nav>
-              <Link
-                href="/"
-                className="relative inline-flex items-center rounded-md border border-transparent bg-primary px-6 py-2 text-sm font-medium text-white hover:bg-lightPrimary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              >
-                Login
-              </Link>
+              {user ? (
+                <UserNav {...user} />
+              ) : (
+                <Link
+                  href="/login"
+                  className="relative inline-flex items-center rounded-md border border-transparent bg-primary px-6 py-2 text-sm font-medium text-white hover:bg-lightPrimary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                  Login
+                </Link>
+              )}
             </nav>
           </header>
           <main className="flex-1">{children}</main>

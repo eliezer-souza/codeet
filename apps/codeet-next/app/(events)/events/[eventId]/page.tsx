@@ -47,8 +47,7 @@ export default async function EventInformation({
                     <MemberCard
                       key={user.id}
                       id={user.id}
-                      firstName={user.firstName}
-                      lastName={user.lastName}
+                      name={user.name}
                     />
                   ))}
                 </div>

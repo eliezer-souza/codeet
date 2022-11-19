@@ -22,7 +22,7 @@ export default async function EventInformation({
   }).format(date);
 
   return (
-    <section className="container flex items-center justify-center gap-6 pt-8 py-8 md:py-12 lg:pt-24 px-24">
+    <section className="container flex items-center justify-center gap-6 p-8 md:py-12 lg:pt-24">
       <div className="flex flex-col items-start gap-10 md:max-w-[960px] w-full">
         <Back />
         <div className="bg-slate-300 h-40 w-full rounded-md" />
@@ -44,11 +44,7 @@ export default async function EventInformation({
               <div>
                 <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-8 gap-4">
                   {Participant.map(({ user }) => (
-                    <MemberCard
-                      key={user.id}
-                      id={user.id}
-                      name={user.name}
-                    />
+                    <MemberCard key={user.id} id={user.id} name={user.name} />
                   ))}
                 </div>
               </div>

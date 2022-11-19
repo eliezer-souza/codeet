@@ -3,7 +3,7 @@ import { EventCommands } from '@codeet/domain';
 import { Calendar, MapPin } from 'lucide-react';
 
 import MemberCard from '../../../../components/member-card';
-import Back from '../../../../components/back';
+import Back from '../../../../components/ui/back';
 
 type EventInformationProps = {
   params: { eventId: string };

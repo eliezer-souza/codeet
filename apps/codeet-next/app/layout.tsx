@@ -1,7 +1,7 @@
 import '../theme/global.css';
 
 import Link from 'next/link';
-import { Logo } from '../components/logo';
+import { Logo } from '../components/ui/logo';
 import { getUserSession } from '../lib/session';
 import UserNav from '../components/user-nav';
 
@@ -39,7 +39,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             </div>
             <nav>
               {user ? (
-                <UserNav {...user} />
+                <UserNav id={user['id']} {...user} />
               ) : (
                 <Link
                   href="/login"

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { signIn, SignInOptions } from 'next-auth/react';
 
-import { Logo } from '../../../components/logo';
+import { Logo } from '../../../components/ui/logo';
 import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {

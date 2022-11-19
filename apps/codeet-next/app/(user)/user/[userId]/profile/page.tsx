@@ -39,7 +39,7 @@ export default async function UserProfile({
             </div>
             <Link
               href={`user/${data.id}/edit`}
-              className="inline-flex h-11 w-full md:w-auto items-center justify-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="inline-flex h-11 w-full md:w-auto items-center justify-center rounded-md border border-slate-300 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               Edit account
             </Link>

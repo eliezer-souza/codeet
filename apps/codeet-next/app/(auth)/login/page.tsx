@@ -18,6 +18,14 @@ export default function LoginPage() {
     <div className="container flex h-screen w-screen flex-col items-center justify-center px-4">
       <div className="flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col items-center space-y-2 text-center">
+          <button
+            type="button"
+            onClick={() => {
+              throw new Error('Sentry Frontend Error');
+            }}
+          >
+            Throw error
+          </button>
           <Logo />
           <h1 className="text-2xl font-bold">Welcome back</h1>
           <p className="text-sm text-slate-600">Please login to your account</p>

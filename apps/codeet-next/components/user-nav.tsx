@@ -1,10 +1,10 @@
 'use client';
 
-import * as Avatar from '@radix-ui/react-avatar';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { getUserSession } from '../lib/session';
 import { DropdownMenu } from './ui/dropdown';
+import UserAvatar from './user-avatar';
 
 type UserNavProps = { id: string } & Awaited<ReturnType<typeof getUserSession>>;
 
@@ -12,12 +12,11 @@ export default function UserNav({ id, image, name, email }: UserNavProps) {
   return (
     <DropdownMenu>
       <DropdownMenu.Trigger className="flex items-center gap-2 overflow-hidden focus:ring-2 focus:ring-primary focus:ring-offset-2 focus-visible:outline-none">
-        <Avatar.Root className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-slate-300">
-          <Avatar.Image src={image} alt="Colm Tuite" />
-          <Avatar.Fallback delayMs={600}>
-            {name.charAt(0).toUpperCase()}
-          </Avatar.Fallback>
-        </Avatar.Root>
+        <UserAvatar
+          className="h-8 w-8 rounded-full"
+          name={name}
+          image={image}
+        />
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="mt-2 md:w-[240px]" align="end">

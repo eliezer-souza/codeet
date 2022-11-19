@@ -23,7 +23,7 @@ export default async function GroupsPage() {
             placeholder="Search..."
           />
         </div>
-        <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-8  gap-4">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-8 gap-4">
           {groups.data.map(({ id, name }) => (
             <GroupCard key={id} id={id} name={name} />
           ))}

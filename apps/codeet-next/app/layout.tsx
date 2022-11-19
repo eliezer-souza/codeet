@@ -16,7 +16,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body>
         <div className="flex min-h-screen flex-col">
-          <header className="container flex items-center justify-between p-4">
+          <header className="container flex items-center justify-between p-4 sticky top-0 bg-white">
             <div className="flex gap-6 md:gap-10">
               <Link href="/" className="flex items-center space-x-2">
                 <Logo />

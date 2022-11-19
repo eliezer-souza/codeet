@@ -7,7 +7,7 @@ export default async function EventsPage() {
   const events = await EventCommands.getAllEvents(null);
 
   return (
-    <section className="container flex items-center justify-center gap-6 pt-8 md:py-12 lg:pt-24 px-24">
+    <section className="container flex items-center justify-center gap-6 p-8 md:py-12 lg:pt-24">
       <div className="flex flex-col items-start gap-4 md:max-w-[960px] w-full">
         <h1 className="text-xl font-bold leading-[1.1] sm:text-2xl md:text-4xl">
           Events

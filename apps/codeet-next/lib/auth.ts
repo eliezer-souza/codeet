@@ -3,7 +3,6 @@ import GoogleProvider from 'next-auth/providers/google';
 import GithubProvider from 'next-auth/providers/github';
 import { prismaClient } from '@codeet/domain';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { v4 as uuidv4 } from 'uuid';
 
 export const nextAuthOptions: NextAuthOptions = {
   providers: [
@@ -12,7 +11,7 @@ export const nextAuthOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       profile(profile) {
         return {
-          id: uuidv4(),
+          id: profile.sub,
           externalId: profile.sub,
           name: profile.name,
           email: profile.email,
@@ -25,7 +24,7 @@ export const nextAuthOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       profile(profile) {
         return {
-          id: uuidv4(),
+          id: profile.id.toString(),
           externalId: profile.id.toString(),
           name: profile.name || profile.login,
           email: profile.email,

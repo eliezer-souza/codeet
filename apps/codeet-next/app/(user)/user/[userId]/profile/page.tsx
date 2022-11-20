@@ -50,7 +50,7 @@ export default async function UserProfile({
             Your upcoming events
           </h2>
           <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-4 gap-4">
-            {data.Participant.map((participant) => (
+            {data.participant.map((participant) => (
               <EventCard
                 {...participant.event}
                 key={participant.event.id}
@@ -70,7 +70,7 @@ export default async function UserProfile({
             Your groups
           </h2>
           <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-8 gap-4">
-            {data.Member.map((member) => (
+            {data.member.map((member) => (
               <GroupCard
                 key={member.group.id}
                 id={member.group.id}

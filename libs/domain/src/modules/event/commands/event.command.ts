@@ -42,6 +42,6 @@ export const getEventById = command(
   async ({ id }) =>
     await prismaClient.event.findUnique({
       where: { id },
-      include: { Participant: { include: { user: true } }, group: true },
+      include: { participant: { include: { user: true } }, group: true },
     })
 );

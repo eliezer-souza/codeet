@@ -20,8 +20,8 @@ export const getUserById = command(z.object({ id: z.string().min(1) })).handler(
     await prismaClient.user.findUnique({
       where: { id },
       include: {
-        Participant: { include: { event: true } },
-        Member: { include: { group: true } },
+        participant: { include: { event: true } },
+        member: { include: { group: true } },
       },
     })
 );

@@ -13,7 +13,7 @@ export default async function EventInformation({
   params: { eventId },
 }: EventInformationProps) {
   const {
-    data: { name, details, date, venue, group, Participant },
+    data: { name, details, date, venue, group, participant },
   } = await EventCommands.getEventById({ id: eventId });
 
   const formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -43,7 +43,7 @@ export default async function EventInformation({
               </h2>
               <div>
                 <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-8 gap-4">
-                  {Participant.map(({ user }) => (
+                  {participant.map(({ user }) => (
                     <MemberCard key={user.id} id={user.id} name={user.name} />
                   ))}
                 </div>

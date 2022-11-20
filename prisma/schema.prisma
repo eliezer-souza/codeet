@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native"]
 }
 
@@ -12,7 +12,7 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String  @id @default(uuid())
   userId            String
   type              String
   provider          String
@@ -31,7 +31,7 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
@@ -39,16 +39,17 @@ model Session {
 }
 
 model User {
-  id            String        @id @default(cuid())
+  id            String        @id @default(uuid())
+  externalId    String        @unique
   name          String
   email         String        @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Group         Group[]       @relation("administrator")
-  Member        Member[]
-  Participant   Participant[]
+  group         Group[]       @relation("administrator")
+  member        Member[]
+  participant   Participant[]
 }
 
 model VerificationToken {
@@ -67,8 +68,8 @@ model Group {
   urlLogo         String?
   administratorId String
   administrator   User     @relation("administrator", fields: [administratorId], references: [id])
-  Member          Member[]
-  Event           Event[]
+  member          Member[]
+  event           Event[]
 }
 
 model Member {
@@ -90,7 +91,7 @@ model Event {
   venue       Json
   groupId     String
   group       Group         @relation(fields: [groupId], references: [id])
-  Participant Participant[]
+  participant Participant[]
 }
 
 model Participant {

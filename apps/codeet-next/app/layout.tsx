@@ -7,6 +7,8 @@ import UserNav from '../components/user-nav';
 import ReactQueryWrapper from '../components/react-query-wrapper';
 import Toaster from '../components/ui/toaster';
 
+export { reportWebVitals } from 'next-axiom';
+
 
 type RootLayoutProps = {
   children: React.ReactNode;

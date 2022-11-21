@@ -1,13 +1,15 @@
-import { unstable_getServerSession } from "next-auth/next"
+import { unstable_getServerSession } from 'next-auth/next';
 
-import { nextAuthOptions } from "./auth"
+import { nextAuthOptions } from './auth';
 
 export async function getSession() {
   return await unstable_getServerSession(nextAuthOptions);
 }
 
-export async function getUserSession() {
-  const session = await getSession()
+type UserSession = { id: string } & Awaited<ReturnType<typeof getSession>>['user'];
 
-  return session?.user
+export async function getUserSession(): Promise<UserSession> {
+  const session = await getSession();
+
+  return session?.user as UserSession;
 }

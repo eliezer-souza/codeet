@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { Logo } from '../components/ui/logo';
 import { getUserSession } from '../lib/session';
 import UserNav from '../components/user-nav';
+import ReactQueryWrapper from '../components/react-query-wrapper';
+import Toaster from '../components/ui/toaster';
+
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -39,7 +42,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             </div>
             <nav>
               {user ? (
-                <UserNav id={user['id']} {...user} />
+                <UserNav {...user} />
               ) : (
                 <Link
                   href="/login"
@@ -50,8 +53,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               )}
             </nav>
           </header>
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <ReactQueryWrapper>{children}</ReactQueryWrapper>
+          </main>
         </div>
+        <Toaster reverseOrder={false} />
       </body>
     </html>
   );

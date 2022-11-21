@@ -25,3 +25,20 @@ export const getUserById = command(z.object({ id: z.string().min(1) })).handler(
       },
     })
 );
+
+export const editUser = command(
+  z.object({
+    id: z.string().uuid(),
+    name: z.string().min(3).max(32),
+  })
+).handler(
+  async ({ id, name }) =>
+    await prismaClient.user.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+      },
+    })
+);

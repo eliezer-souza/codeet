@@ -45,3 +45,42 @@ export const getEventById = command(
       include: { participant: { include: { user: true } }, group: true },
     })
 );
+
+export const verifyUserIsParticipantOfEvent = command(
+  z.object({ userId: z.string().uuid(), eventId: z.string().uuid() })
+).handler(async ({ userId, eventId }) => {
+  const participant = await prismaClient.participant.findFirst({
+    where: {
+      userId,
+      eventId,
+    },
+  });
+
+  return {
+    isParticipant: Boolean(participant),
+  };
+});
+
+export const attendEvent = command(
+  z.object({ userId: z.string().uuid(), eventId: z.string().uuid() })
+).handler(
+  async ({ userId, eventId }) =>
+    await prismaClient.participant.create({
+      data: {
+        userId,
+        eventId,
+      },
+    })
+);
+
+export const leaveEvent = command(
+  z.object({ userId: z.string().uuid(), eventId: z.string().uuid() })
+).handler(
+  async ({ userId, eventId }) =>
+    await prismaClient.participant.deleteMany({
+      where: {
+        userId,
+        eventId,
+      },
+    })
+);

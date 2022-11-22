@@ -9,7 +9,6 @@ import Toaster from '../components/ui/toaster';
 
 export { reportWebVitals } from 'next-axiom';
 
-
 type RootLayoutProps = {
   children: React.ReactNode;
 };

@@ -1,9 +1,11 @@
 import { EventCommands } from '@codeet/domain';
-
 import { Calendar, MapPin } from 'lucide-react';
 
+import AttendEvent from '../../../../components/attend-event';
+import LeaveEvent from '../../../../components/leave-event';
 import MemberCard from '../../../../components/member-card';
 import Back from '../../../../components/ui/back';
+import { getUserSession } from '../../../../lib/session';
 
 type EventInformationProps = {
   params: { eventId: string };
@@ -12,9 +14,17 @@ type EventInformationProps = {
 export default async function EventInformation({
   params: { eventId },
 }: EventInformationProps) {
+  const user = await getUserSession();
   const {
     data: { name, details, date, venue, group, participant },
   } = await EventCommands.getEventById({ id: eventId });
+
+  const {
+    data: { isParticipant },
+  } = await EventCommands.verifyUserIsParticipantOfEvent({
+    eventId,
+    userId: user.id,
+  });
 
   const formattedDate = new Intl.DateTimeFormat('en-US', {
     dateStyle: 'full',
@@ -26,7 +36,7 @@ export default async function EventInformation({
       <div className="flex flex-col items-start gap-10 md:max-w-[960px] w-full">
         <Back />
         <div className="bg-slate-300 h-40 w-full rounded-md" />
-        <div className="flex flex-col-reverse md:flex-row gap-10">
+        <div className="w-full flex flex-col-reverse md:flex-row gap-10">
           <div className="w-full flex flex-col gap-10">
             <h1 className="text-xl font-bold leading-[1.1] sm:text-2xl md:text-4xl">
               {name}
@@ -51,9 +61,11 @@ export default async function EventInformation({
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col gap-10 w-full">
-            <button className="inline-flex w-full justify-center items-center rounded-md border border-transparent bg-primary px-8 py-2 font-medium text-white hover:bg-lightPrimary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-              Attend the event
-            </button>
+            {isParticipant ? (
+              <LeaveEvent eventId={eventId} />
+            ) : (
+              <AttendEvent eventId={eventId} />
+            )}
             <div>
               <p className="uppercase text-sm text-slate-400">
                 Date of the event

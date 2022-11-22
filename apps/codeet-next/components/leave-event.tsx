@@ -30,6 +30,7 @@ export default function LeaveEvent({
   return (
     <button
       onClick={() => mutate()}
+      disabled={isLoading}
       className="w-full h-11 inline-flex justify-center items-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-red-100 hover:border-red-500 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
     >
       {isLoading && (

@@ -28,6 +28,7 @@ export default function AttendEvent({ eventId }: AttendEventProps) {
   return (
     <button
       onClick={() => mutate()}
+      disabled={isLoading}
       className="w-full h-11 inline-flex justify-center items-center rounded-md border border-transparent bg-primary px-8 py-2 font-medium text-white hover:bg-lightPrimary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
     >
       {isLoading && (

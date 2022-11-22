@@ -47,17 +47,24 @@ export const getEventById = command(
 );
 
 export const verifyUserIsParticipantOfEvent = command(
-  z.object({ userId: z.string().uuid(), eventId: z.string().uuid() })
+  z.object({ userId: z.string().nullable(), eventId: z.string().uuid() })
 ).handler(async ({ userId, eventId }) => {
-  const participant = await prismaClient.participant.findFirst({
-    where: {
-      userId,
-      eventId,
-    },
-  });
+
+  if (userId) {
+    const participant = await prismaClient.participant.findFirst({
+      where: {
+        userId,
+        eventId,
+      },
+    });
+
+    return {
+      isParticipant: Boolean(participant),
+    };
+  }
 
   return {
-    isParticipant: Boolean(participant),
+    isParticipant: false,
   };
 });
 

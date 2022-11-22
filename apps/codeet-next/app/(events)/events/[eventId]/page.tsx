@@ -20,10 +20,10 @@ export default async function EventInformation({
   } = await EventCommands.getEventById({ id: eventId });
 
   const {
-    data: { isParticipant },
+    data,
   } = await EventCommands.verifyUserIsParticipantOfEvent({
     eventId,
-    userId: user.id,
+    userId: user?.id,
   });
 
   const formattedDate = new Intl.DateTimeFormat('en-US', {
@@ -61,7 +61,7 @@ export default async function EventInformation({
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col gap-10 w-full">
-            {isParticipant ? (
+            {data?.isParticipant ? (
               <LeaveEvent eventId={eventId} />
             ) : (
               <AttendEvent eventId={eventId} />

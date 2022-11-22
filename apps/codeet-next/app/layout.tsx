@@ -2,10 +2,11 @@ import '../theme/global.css';
 
 import Link from 'next/link';
 import { Logo } from '../components/ui/logo';
-import { getUserSession } from '../lib/session';
+import { getSession, getUserSession } from '../lib/session';
 import UserNav from '../components/user-nav';
 import ReactQueryWrapper from '../components/react-query-wrapper';
 import Toaster from '../components/ui/toaster';
+import SessionWrapper from '../components/session-wrapper';
 
 export { reportWebVitals } from 'next-axiom';
 
@@ -14,6 +15,7 @@ type RootLayoutProps = {
 };
 
 export default async function RootLayout({ children }: RootLayoutProps) {
+  const session = await getSession();
   const user = await getUserSession();
 
   return (
@@ -55,7 +57,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             </nav>
           </header>
           <main className="flex-1">
-            <ReactQueryWrapper>{children}</ReactQueryWrapper>
+            <ReactQueryWrapper>
+              <SessionWrapper session={session}>{children}</SessionWrapper>
+            </ReactQueryWrapper>
           </main>
         </div>
         <Toaster reverseOrder={false} />

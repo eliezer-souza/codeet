@@ -3,7 +3,7 @@ import { Calendar, MapPin } from 'lucide-react';
 
 import AttendEvent from '../../../../components/attend-event';
 import LeaveEvent from '../../../../components/leave-event';
-import MemberCard from '../../../../components/member-card';
+import ParticipantsCard from '../../../../components/participants-card';
 import Back from '../../../../components/ui/back';
 import { getUserSession } from '../../../../lib/session';
 
@@ -19,9 +19,7 @@ export default async function EventInformation({
     data: { name, details, date, venue, group, participant },
   } = await EventCommands.getEventById({ id: eventId });
 
-  const {
-    data,
-  } = await EventCommands.verifyUserIsParticipantOfEvent({
+  const { data } = await EventCommands.verifyUserIsParticipantOfEvent({
     eventId,
     userId: user?.id,
   });
@@ -47,20 +45,11 @@ export default async function EventInformation({
               </h2>
               <p>{details}</p>
             </div>
-            <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-primary">
-                Attendees
-              </h2>
-              <div>
-                <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-8 gap-4">
-                  {participant.map(({ user }) => (
-                    <MemberCard key={user.id} id={user.id} name={user.name} />
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
           <div className="md:w-1/2 flex flex-col gap-10 w-full">
+            <div className="flex justify-center md:justify-start items-center">
+              <ParticipantsCard participants={participant} />
+            </div>
             {data?.isParticipant ? (
               <LeaveEvent eventId={eventId} />
             ) : (

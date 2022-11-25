@@ -31,5 +31,12 @@ export const getAllGroups = command().handler(
 export const getGroupById = command(
   z.object({ id: z.string().uuid().min(1) })
 ).handler(
-  async ({ id }) => await prismaClient.group.findUnique({ where: { id } })
+  async ({ id }) => await prismaClient.group.findUnique({
+    where: { id },
+    include: {
+      _count: {
+        select: { event: true, member: true }
+      }
+    }
+  })
 );

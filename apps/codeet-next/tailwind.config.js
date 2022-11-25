@@ -19,8 +19,12 @@ module.exports = {
       none: 'none',
     },
     extend: {
+      gridTemplateColumns: {
+        'fill-400': 'repeat(auto-fill, minmax(400px, 1fr))',
+      },
       colors: {
         ...colors,
+        background: '#F3F4FD',
         lightPrimary: '#2D0973',
         primary: '#24075b',
         darkPrimary: '#1B0543',

@@ -8,13 +8,13 @@ export const createEvent = command(
   z.object({
     name: z.string().min(1),
     details: z.string().min(1),
-    date: z.date(),
+    date: z.string(),
     venue: z.object({
       street: z.string().min(1),
-      number: z.number().min(1),
-      city: z.string().min(1),
-      country: z.string().min(1),
-      zipcode: z.string().min(1),
+      // number: z.number().min(1),
+      // city: z.string().min(1),
+      // country: z.string().min(1),
+      // zipcode: z.string().min(1),
     }),
     groupId: z.string().min(1),
   })

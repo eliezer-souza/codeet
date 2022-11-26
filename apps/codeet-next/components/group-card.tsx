@@ -1,3 +1,5 @@
+import Skeleton from './ui/skeleton';
+
 type GroupCardProps = {
   id: string;
   name: string;
@@ -21,3 +23,7 @@ export default function GroupCard({ name }: GroupCardProps) {
     </div>
   );
 }
+
+GroupCard.Skeleton = function GroupCardSkeleton() {
+  return <Skeleton className="w-full h-96" />;
+};

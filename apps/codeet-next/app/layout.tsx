@@ -31,13 +31,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               <nav className="flex items-center gap-6 sm:gap-8">
                 <Link
                   href="/groups"
-                  className="text-sm font-medium hover:text-primary"
+                  className="text-sm font-medium text-slate-900 hover:text-primary hover:bg-slate-100 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
                   Groups
                 </Link>
                 <Link
                   href="/events"
-                  className="text-sm font-medium hover:text-primary"
+                  className="text-sm font-medium text-slate-900 hover:text-primary hover:bg-slate-100 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 >
                   Events
                 </Link>

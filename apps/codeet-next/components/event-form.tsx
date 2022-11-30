@@ -10,37 +10,56 @@ import { z } from 'zod';
 import DatePicker from './ui/datepicker';
 import { toast } from './ui/toaster';
 
-const eventCreateSchema = z.object({
+const eventSchema = z.object({
   name: z.string().min(3).max(32),
   details: z.string().min(3),
-  date: z.date(),
+  date: z.string(),
   venue: z.object({
     street: z.string().min(1),
   }),
 });
 
-type EventForm = z.infer<typeof eventCreateSchema>;
+type EventHookForm = z.infer<typeof eventSchema>;
 
-type EventCreateFormProps = {
-  groupId: string;
-};
+type EventFormProps =
+  | ({
+      eventId: string;
+      groupId: string;
+      isEdit: true;
+    } & Required<EventHookForm>)
+  | ({
+      groupId: string;
+      eventId?: string;
+      isEdit: false;
+    } & EventHookForm);
 
-export default function EventCreateForm({ groupId }: EventCreateFormProps) {
+export default function EventForm({
+  groupId,
+  eventId,
+  name,
+  details,
+  date,
+  venue,
+  isEdit,
+}: EventFormProps) {
   const router = useRouter();
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<EventForm>({
-    resolver: zodResolver(eventCreateSchema),
+  } = useForm<EventHookForm>({
+    resolver: zodResolver(eventSchema),
     defaultValues: {
-      date: new Date(),
+      name,
+      details,
+      date,
+      venue,
     },
   });
 
-  const { mutate, isLoading } = useMutation(
-    ({ name, details, date, venue }: EventForm) =>
+  const createEvent = useMutation(
+    ({ name, details, date, venue }: EventHookForm) =>
       fetch(`/api/events/create`, {
         method: 'POST',
         body: JSON.stringify({
@@ -61,14 +80,37 @@ export default function EventCreateForm({ groupId }: EventCreateFormProps) {
     }
   );
 
-  const handleEditUser = (user: EventForm) => {
-    mutate({ ...user });
+  const editEvent = useMutation(
+    ({ name, details, date, venue }: EventHookForm) =>
+      fetch(`/api/events/${eventId}/edit`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          name,
+          details,
+          date,
+          venue,
+        }),
+      }),
+    {
+      onSuccess: () => {
+        toast.success('Your event has been updated.');
+        router.push(`/events/${eventId}`);
+      },
+    }
+  );
+
+  const handleActionEvent = (event: EventHookForm) => {
+    if (isEdit) {
+      editEvent.mutate({ ...event });
+    } else {
+      createEvent.mutate({ ...event });
+    }
   };
 
   return (
     <form
       className="flex flex-col gap-4 w-full"
-      onSubmit={handleSubmit(handleEditUser)}
+      onSubmit={handleSubmit(handleActionEvent)}
     >
       <div className="flex flex-col gap-2">
         <h4 className="font-bold">Event Name</h4>
@@ -94,8 +136,8 @@ export default function EventCreateForm({ groupId }: EventCreateFormProps) {
             render={({ field }) => (
               <DatePicker
                 placeholderText="Select date"
-                onChange={(date) => field.onChange(date)}
-                selected={field.value}
+                onChange={(date) => field.onChange(String(date))}
+                selected={new Date(String(field.value))}
                 minDate={new Date()}
               />
             )}
@@ -140,9 +182,9 @@ export default function EventCreateForm({ groupId }: EventCreateFormProps) {
       <button
         type="submit"
         className="inline-flex w-full md:w-32 justify-center items-center rounded-md border border-transparent bg-primary px-8 py-2 font-medium text-white hover:bg-lightPrimary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        disabled={isLoading}
+        disabled={editEvent.isLoading || createEvent.isLoading}
       >
-        {isLoading ? (
+        {editEvent.isLoading || createEvent.isLoading ? (
           <Loader2 width={16} height={16} className="mr-2 animate-spin" />
         ) : (
           <Save width={16} height={16} className="mr-2" />

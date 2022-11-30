@@ -8,7 +8,7 @@ export const createEvent = command(
   z.object({
     name: z.string().min(1),
     details: z.string().min(1),
-    date: z.string(),
+    date: z.date(),
     venue: z.object({
       street: z.string().min(1),
       // number: z.number().min(1),
@@ -49,7 +49,6 @@ export const getEventById = command(
 export const verifyUserIsParticipantOfEvent = command(
   z.object({ userId: z.string().nullable(), eventId: z.string().uuid() })
 ).handler(async ({ userId, eventId }) => {
-
   if (userId) {
     const participant = await prismaClient.participant.findFirst({
       where: {
@@ -91,3 +90,54 @@ export const leaveEvent = command(
       },
     })
 );
+
+export const editUser = command(
+  z.object({
+    id: z.string().uuid().min(1),
+    name: z.string().min(1),
+    details: z.string().min(1),
+    date: z.string(),
+    venue: z.object({
+      street: z.string().min(1),
+    }),
+  })
+).handler(async ({ id, name, details, date, venue }) => {
+  await prismaClient.event.update({
+    where: { id },
+    data: {
+      name,
+      details,
+      date,
+      venue,
+    },
+  });
+});
+
+export const verifyUserIsAdministratorOfEvent = command(
+  z.object({
+    userId: z.string().uuid().nullable(),
+    eventId: z.string().uuid(),
+  })
+).handler(async ({ eventId, userId }) => {
+  if (userId) {
+    const administratorEvent = await prismaClient.event.findFirst({
+      where: {
+        id: eventId,
+        group: {
+          administratorId: userId,
+        },
+      },
+      include: {
+        group: true,
+      },
+    });
+
+    return {
+      isEventAdministrator: Boolean(administratorEvent),
+    };
+  }
+
+  return {
+    isEventAdministrator: false,
+  };
+});

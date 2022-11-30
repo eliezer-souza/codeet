@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
-import EventCreateForm from '../../../../components/event-create-form';
+
+import EventForm from '../../../../components/event-form';
 import Back from '../../../../components/ui/back';
 import { getUserSession } from '../../../../lib/session';
 
@@ -23,7 +24,7 @@ export default async function EventCreate({
         <h1 className="text-xl font-bold leading-[1.1] sm:text-2xl md:text-4xl">
           Create event
         </h1>
-        <EventCreateForm groupId={groupId} />
+        <EventForm isEdit={false} groupId={groupId} />
       </div>
     </section>
   );

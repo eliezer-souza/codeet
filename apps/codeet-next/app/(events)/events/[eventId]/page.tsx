@@ -1,5 +1,6 @@
 import { EventCommands } from '@codeet/domain';
 import { Calendar, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 import AttendEvent from '../../../../components/attend-event';
 import LeaveEvent from '../../../../components/leave-event';
@@ -19,10 +20,17 @@ export default async function EventInformation({
     data: { name, details, date, venue, group, participant },
   } = await EventCommands.getEventById({ id: eventId });
 
-  const { data } = await EventCommands.verifyUserIsParticipantOfEvent({
-    eventId,
-    userId: user?.id,
-  });
+  const { data: verifyUserIsParticipantOfEvent } =
+    await EventCommands.verifyUserIsParticipantOfEvent({
+      eventId,
+      userId: user?.id,
+    });
+
+  const { data: verifyUserIsAdministratorOfEvent } =
+    await EventCommands.verifyUserIsAdministratorOfEvent({
+      eventId,
+      userId: user?.id,
+    });
 
   const formattedDate = new Intl.DateTimeFormat('en-US', {
     dateStyle: 'full',
@@ -47,13 +55,23 @@ export default async function EventInformation({
             </div>
           </div>
           <div className="md:w-1/2 flex flex-col gap-10 w-full">
-            <div className="flex justify-center md:justify-start items-center">
-              <ParticipantsCard participants={participant} />
-            </div>
-            {data?.isParticipant ? (
+            {participant.length > 0 && (
+              <div className="flex justify-center md:justify-start items-center">
+                <ParticipantsCard participants={participant} />
+              </div>
+            )}
+            {verifyUserIsParticipantOfEvent?.isParticipant ? (
               <LeaveEvent eventId={eventId} />
             ) : (
               <AttendEvent eventId={eventId} />
+            )}
+            {verifyUserIsAdministratorOfEvent?.isEventAdministrator && (
+              <Link
+                href={`/events/${eventId}/edit`}
+                className="relative inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                Edit event
+              </Link>
             )}
             <div>
               <p className="uppercase text-sm text-slate-400">

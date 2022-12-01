@@ -5,7 +5,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
       const body = JSON.parse(req.body);
-      console.log(body);
 
       const { success, data, errors } = await EventCommands.createEvent({
         name: body.name,

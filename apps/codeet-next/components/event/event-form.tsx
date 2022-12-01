@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import DatePicker from './ui/datepicker';
-import { toast } from './ui/toaster';
+import DatePicker from '../ui/datepicker';
+import { toast } from '../ui/toaster';
 
 const eventSchema = z.object({
   name: z.string().min(3).max(32),

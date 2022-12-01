@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { toast } from './ui/toaster';
+import { toast } from '../ui/toaster';
 
 type AttendEventProps = {
   eventId: string;

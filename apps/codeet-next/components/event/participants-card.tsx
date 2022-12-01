@@ -2,9 +2,9 @@
 
 import { Participant, User } from '@prisma/client';
 import { Users } from 'lucide-react';
-import { DropdownMenu } from './ui/dropdown';
-import { ScrollArea } from './ui/scrollarea';
-import UserAvatar from './user-avatar';
+import { DropdownMenu } from '../ui/dropdown';
+import { ScrollArea } from '../ui/scrollarea';
+import UserAvatar from '../user-avatar';
 
 type ParticipantsCardProps = {
   participants: (Participant & {

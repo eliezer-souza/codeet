@@ -3,7 +3,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { toast } from './ui/toaster';
+import { toast } from '../ui/toaster';
 
 type LeaveEventProps = {
   eventId: string;

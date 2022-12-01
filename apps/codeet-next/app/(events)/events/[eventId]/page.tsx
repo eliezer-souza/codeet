@@ -2,9 +2,9 @@ import { EventCommands } from '@codeet/domain';
 import { Calendar, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
-import AttendEvent from '../../../../components/attend-event';
-import LeaveEvent from '../../../../components/leave-event';
-import ParticipantsCard from '../../../../components/participants-card';
+import AttendEvent from '../../../../components/event/attend-event';
+import LeaveEvent from '../../../../components/event/leave-event';
+import ParticipantsCard from '../../../../components/event/participants-card';
 import Back from '../../../../components/ui/back';
 import { getUserSession } from '../../../../lib/session';
 

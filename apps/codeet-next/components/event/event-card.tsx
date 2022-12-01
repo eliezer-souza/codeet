@@ -1,6 +1,6 @@
 import { Calendar, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import Skeleton from './ui/skeleton';
+import Skeleton from '../ui/skeleton';
 
 export type Venue = {
   street: string;

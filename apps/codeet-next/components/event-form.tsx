@@ -10,6 +10,14 @@ import { z } from 'zod';
 import DatePicker from './ui/datepicker';
 import { toast } from './ui/toaster';
 
+const convertStringToDate = (value: string) => {
+  if (value) {
+    return new Date(value);
+  }
+  
+  return new Date();
+}
+
 const eventSchema = z.object({
   name: z.string().min(3).max(32),
   details: z.string().min(3),
@@ -137,7 +145,7 @@ export default function EventForm({
               <DatePicker
                 placeholderText="Select date"
                 onChange={(date) => field.onChange(String(date))}
-                selected={new Date(String(field.value))}
+                selected={convertStringToDate(field.value)}
                 minDate={new Date()}
               />
             )}

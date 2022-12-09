@@ -1,10 +1,12 @@
 import { UserCommands } from '@codeet/domain';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { CalendarDays, Users } from 'lucide-react';
 
 import EventCard from '../../../../../components/event-card';
 import GroupCard from '../../../../../components/group-card';
 import UserAvatar from '../../../../../components/user-avatar';
+import Empty from '../../../../../components/ui/empty';
 import { getUserSession } from '../../../../../lib/session';
 
 type UserProfileProps = {
@@ -46,10 +48,25 @@ export default async function UserProfile({
           </div>
         </div>
         <div className="w-full">
-          <h2 className="text-lg font-bold leading-[1.1] sm:text-xl md:text-2xl">
+          <h2 className="text-lg font-bold leading-[1.1] sm:text-xl md:text-2xl mb-4">
             Your upcoming events
           </h2>
-          <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-4 gap-4">
+          {data.participant.length === 0 && (
+            <Empty
+              icon={CalendarDays}
+              title="No upcoming events"
+              description="You are not participating in any events recently. Join new events now."
+            >
+              <Link
+                href="/events"
+                rel="noreferrer"
+                className="relative inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                Explore events
+              </Link>
+            </Empty>
+          )}
+          <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
             {data.participant.map((participant) => (
               <EventCard
                 {...participant.event}
@@ -66,10 +83,25 @@ export default async function UserProfile({
           </div>
         </div>
         <div className="w-full">
-          <h2 className="text-lg font-bold leading-[1.1] sm:text-xl md:text-2xl">
+          <h2 className="text-lg font-bold leading-[1.1] sm:text-xl md:text-2xl mb-8">
             Your groups
           </h2>
-          <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-8 gap-4">
+          {data.member.length === 0 && (
+            <Empty
+              icon={Users}
+              title="No groups"
+              description="You are not a member of any group at the moment. Join new groups now."
+            >
+              <Link
+                href="/groups"
+                rel="noreferrer"
+                className="relative inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                Explore groups
+              </Link>
+            </Empty>
+          )}
+          <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4">
             {data.member.map((member) => (
               <GroupCard
                 key={member.group.id}

@@ -1,7 +1,8 @@
-import { Search } from 'lucide-react';
+import { Search, Users } from 'lucide-react';
 import { GroupCommands } from '@codeet/domain';
 
 import GroupCard from '../../../components/group-card';
+import Empty from '../../../components/ui/empty';
 
 export default async function GroupsPage() {
   const groups = await GroupCommands.getAllGroups(null);
@@ -23,6 +24,13 @@ export default async function GroupsPage() {
             placeholder="Search..."
           />
         </div>
+        {groups.data.length === 0 && (
+          <Empty
+            icon={Users}
+            title="No groups created"
+            description="You don't have any groups yet. Start creating groups now."
+          />
+        )}
         <div className="w-full grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-8 gap-4">
           {groups.data.map(({ id, name }) => (
             <GroupCard key={id} id={id} name={name} />

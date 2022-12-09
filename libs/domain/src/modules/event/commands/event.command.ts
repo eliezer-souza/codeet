@@ -45,3 +45,12 @@ export const getEventById = command(
       include: { participant: { include: { user: true } }, group: true },
     })
 );
+
+export const getEventsByGroup = command(
+  z.object({ groupId: z.string().uuid().min(1) })
+).handler(async ({ groupId }) =>
+  await prismaClient.event.findMany({
+    where: {
+      groupId,
+    }
+  }))

@@ -1,4 +1,5 @@
 import { Group } from "@prisma/client"
+import Avatar from "../../../../components/user-avatar";
 
 type InfoProps = {
   group: Group;
@@ -7,10 +8,12 @@ type InfoProps = {
 }
 
 export default function Info({ group, totalEvents, totalMembers }: InfoProps) {
+  const { name, urlLogo } = group;
+
   return (
     <div className="bg-white shadow-sm">
       <div className="container flex flex-col gap-5 sm:gap-0 sm:flex-row items-center mx-auto py-7">
-        <div className="flex-none bg-red-600 w-44 h-44 rounded-md -mt-28 mr-4"></div>
+        <Avatar name={name} image={urlLogo} className="flex-none w-44 h-44 rounded-md -mt-28 mr-4 text-5xl" />
         <div className="flex flex-col gap-3 sm:gap-10 sm:flex-row lg:gap-20 md:flex-1 items-center">
           <div className="flex flex-col flex-grow">
             <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary">{group.name}</h2>

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import { cn } from '../../lib/cn';
 
 type DropdownMenuProps = DropdownMenuPrimitive.DropdownMenuProps;
 
@@ -18,7 +19,6 @@ DropdownMenu.Trigger = React.forwardRef<
   return <DropdownMenuPrimitive.Trigger {...props} ref={ref} />;
 });
 
-
 DropdownMenu.Content = React.forwardRef<
   HTMLDivElement,
   DropdownMenuPrimitive.MenuContentProps
@@ -26,10 +26,11 @@ DropdownMenu.Content = React.forwardRef<
   return (
     <DropdownMenuPrimitive.Content
       ref={ref}
-      align="end"
-      className={
-        'overflow-hidden rounded-md border border-slate-50 bg-white shadow-md animate-in slide-in-from-top-1'
-      }
+      align="start"
+      className={cn(
+        'overflow-hidden rounded-md border border-slate-50 bg-white shadow-md animate-in slide-in-from-top-1',
+        className
+      )}
       {...props}
     />
   );
@@ -42,9 +43,10 @@ DropdownMenu.Item = React.forwardRef<
   return (
     <DropdownMenuPrimitive.Item
       ref={ref}
-      className={
-        'flex cursor-default select-none items-center py-2 px-3 text-sm text-slate-600 outline-none focus:bg-slate-50 focus:text-black'
-      }
+      className={cn(
+        'flex cursor-default select-none items-center py-2 px-3 text-sm text-slate-600 outline-none focus:bg-slate-50 focus:text-black',
+        className
+      )}
       {...props}
     />
   );

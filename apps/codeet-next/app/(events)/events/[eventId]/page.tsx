@@ -1,9 +1,12 @@
 import { EventCommands } from '@codeet/domain';
-
 import { Calendar, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
-import MemberCard from '../../../../components/member-card';
+import AttendEvent from '../../../../components/attend-event';
+import LeaveEvent from '../../../../components/leave-event';
+import ParticipantsCard from '../../../../components/participants-card';
 import Back from '../../../../components/ui/back';
+import { getUserSession } from '../../../../lib/session';
 
 type EventInformationProps = {
   params: { eventId: string };
@@ -12,9 +15,22 @@ type EventInformationProps = {
 export default async function EventInformation({
   params: { eventId },
 }: EventInformationProps) {
+  const user = await getUserSession();
   const {
     data: { name, details, date, venue, group, participant },
   } = await EventCommands.getEventById({ id: eventId });
+
+  const { data: verifyUserIsParticipantOfEvent } =
+    await EventCommands.verifyUserIsParticipantOfEvent({
+      eventId,
+      userId: user?.id,
+    });
+
+  const { data: verifyUserIsAdministratorOfEvent } =
+    await EventCommands.verifyUserIsAdministratorOfEvent({
+      eventId,
+      userId: user?.id,
+    });
 
   const formattedDate = new Intl.DateTimeFormat('en-US', {
     dateStyle: 'full',
@@ -26,7 +42,7 @@ export default async function EventInformation({
       <div className="flex flex-col items-start gap-10 md:max-w-[960px] w-full">
         <Back />
         <div className="bg-slate-300 h-40 w-full rounded-md" />
-        <div className="flex flex-col-reverse md:flex-row gap-10">
+        <div className="w-full flex flex-col-reverse md:flex-row gap-10">
           <div className="w-full flex flex-col gap-10">
             <h1 className="text-xl font-bold leading-[1.1] sm:text-2xl md:text-4xl">
               {name}
@@ -37,23 +53,26 @@ export default async function EventInformation({
               </h2>
               <p>{details}</p>
             </div>
-            <div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-primary">
-                Attendees
-              </h2>
-              <div>
-                <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-8 gap-4">
-                  {participant.map(({ user }) => (
-                    <MemberCard key={user.id} id={user.id} name={user.name} />
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
           <div className="md:w-1/2 flex flex-col gap-10 w-full">
-            <button className="inline-flex w-full justify-center items-center rounded-md border border-transparent bg-primary px-8 py-2 font-medium text-white hover:bg-lightPrimary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
-              Attend the event
-            </button>
+            {participant.length > 0 && (
+              <div className="flex justify-center md:justify-start items-center">
+                <ParticipantsCard participants={participant} />
+              </div>
+            )}
+            {verifyUserIsParticipantOfEvent?.isParticipant ? (
+              <LeaveEvent eventId={eventId} />
+            ) : (
+              <AttendEvent eventId={eventId} />
+            )}
+            {verifyUserIsAdministratorOfEvent?.isEventAdministrator && (
+              <Link
+                href={`/events/${eventId}/edit`}
+                className="relative inline-flex h-11 items-center justify-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                Edit event
+              </Link>
+            )}
             <div>
               <p className="uppercase text-sm text-slate-400">
                 Date of the event

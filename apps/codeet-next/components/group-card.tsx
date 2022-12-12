@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Skeleton from './ui/skeleton';
 
 type GroupCardProps = {
   id: string;
@@ -23,3 +24,7 @@ export default function GroupCard({ id, name }: GroupCardProps) {
     </Link>
   );
 }
+
+GroupCard.Skeleton = function GroupCardSkeleton() {
+  return <Skeleton className="w-full h-96" />;
+};

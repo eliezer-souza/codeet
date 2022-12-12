@@ -19,7 +19,7 @@ export default function LoginPage() {
       <div className="flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col items-center space-y-2 text-center">
           <Logo />
-          <h1 className="text-2xl font-bold">Welcome back</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
           <p className="text-sm text-slate-600">Please login to your account</p>
         </div>
         <div className="flex flex-col gap-4">

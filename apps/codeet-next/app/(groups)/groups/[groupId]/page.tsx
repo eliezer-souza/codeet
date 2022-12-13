@@ -8,8 +8,9 @@ type GroupAboutProps  = {
 export default async function GroupAbout({ params: { groupId }}: GroupAboutProps) {
   const { data } = await GroupCommands.getGroupDetails({ id: groupId });
   const { member, event, _count, ...group } = data;
+
   return (
-    <div className="group-about flex flex-col gap-10">
+    <div className="group-about flex flex-col gap-6">
       <AboutUs
         events={{ data: event, count: _count.event }}
         members={{ users: member, count: _count.member }}

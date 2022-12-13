@@ -1,6 +1,6 @@
 import { Event } from '@codeet/domain';
 
-import { EventCard } from './EventCard';
+import EventCard, { Venue } from '../../event-card';
 
 type EventsGridProps = {
   events: Event[];
@@ -8,8 +8,16 @@ type EventsGridProps = {
 
 export const EventsGrid = ({ events }: EventsGridProps) => {
   return (
-    <div className="gap-3 grid grid-cols-1 sm:grid-cols-fill-400">
-      {events?.map((event) => (<EventCard key={event.id} event={event} />))}
+    <div className="w-full grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+      {events?.map((event) => (
+        <EventCard
+        id={event.id}
+          key={event.id}
+          name={event.name}
+          date={event.date}
+          venue={event.venue as Venue}
+        />
+      ))}
     </div>
-  )
+  );
 };

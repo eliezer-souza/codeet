@@ -8,6 +8,9 @@ const { withAxiom } = require('next-axiom');
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
+  images: {
+    domains: ["avatars.githubusercontent.com", "lh3.googleusercontent.com"],
+  },
   experimental: {
     appDir: true,
     serverComponentsExternalPackages: ['@prisma/client'],

@@ -1,6 +1,6 @@
 'use client';
 
-import * as Avatar from '@radix-ui/react-avatar';
+import * as RadixAvatar from '@radix-ui/react-avatar';
 import { cn } from '../lib/cn';
 
 type UserAvatarProps = {
@@ -9,22 +9,22 @@ type UserAvatarProps = {
   className?: string;
 };
 
-export default function UserAvatar({
+export default function Avatar({
   name,
   image,
   className,
 }: UserAvatarProps) {
   return (
-    <Avatar.Root
+    <RadixAvatar.Root
       className={cn(
         'flex items-center justify-center overflow-hidden bg-slate-300',
         className
       )}
     >
-      <Avatar.Image src={image} alt="Colm Tuite" />
-      <Avatar.Fallback delayMs={600}>
+      <RadixAvatar.Image src={image} alt="Colm Tuite" />
+      <RadixAvatar.Fallback delayMs={600}>
         {name.charAt(0).toUpperCase()}
-      </Avatar.Fallback>
-    </Avatar.Root>
+      </RadixAvatar.Fallback>
+    </RadixAvatar.Root>
   );
 }

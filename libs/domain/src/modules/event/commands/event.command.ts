@@ -46,6 +46,15 @@ export const getEventById = command(
     })
 );
 
+export const getEventsByGroup = command(
+  z.object({ groupId: z.string().uuid().min(1) })
+).handler(async ({ groupId }) =>
+  await prismaClient.event.findMany({
+    where: {
+      groupId,
+    }
+  }))
+
 export const verifyUserIsParticipantOfEvent = command(
   z.object({ userId: z.string().nullable(), eventId: z.string().uuid() })
 ).handler(async ({ userId, eventId }) => {

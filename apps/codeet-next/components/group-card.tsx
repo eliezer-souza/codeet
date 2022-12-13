@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Skeleton from './ui/skeleton';
 
 type GroupCardProps = {
@@ -6,10 +7,10 @@ type GroupCardProps = {
   urlPhoto?: string;
 };
 
-export default function GroupCard({ name }: GroupCardProps) {
+export default function GroupCard({ id, name }: GroupCardProps) {
   return (
-    <div
-      role="button"
+    <Link
+      href={`groups/${id}`}
       className="flex flex-col w-full h-96 rounded-md cursor-pointer border border-slate-300"
     >
       <div
@@ -20,7 +21,7 @@ export default function GroupCard({ name }: GroupCardProps) {
       <div className="flex justify-center items-center bg-white w-full h-16 rounded-md rounded-tl-none rounded-tr-none">
         {name}
       </div>
-    </div>
+    </Link>
   );
 }
 

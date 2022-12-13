@@ -63,3 +63,48 @@ export const getGroupDetails = command(
     },
   });
 });
+
+export const joinGroup = command(
+  z.object({ userId: z.string().uuid(), groupId: z.string().uuid() })
+).handler(
+  async ({ userId, groupId }) =>
+    await prismaClient.member.create({
+      data: {
+        userId,
+        groupId,
+      },
+    })
+);
+
+export const leaveGroup = command(
+  z.object({ userId: z.string().uuid(), groupId: z.string().uuid() })
+).handler(
+  async ({ userId, groupId }) =>
+    await prismaClient.member.deleteMany({
+      where: {
+        userId,
+        groupId,
+      },
+    })
+);
+
+export const verifyUserIsMemberOfGroup = command(
+  z.object({ userId: z.string().nullable(), groupId: z.string().uuid() })
+).handler(async ({ userId, groupId }) => {
+  if (userId) {
+    const member = await prismaClient.member.findFirst({
+      where: {
+        userId,
+        groupId,
+      },
+    });
+
+    return {
+      isMember: Boolean(member),
+    };
+  }
+
+  return {
+    isMember: false,
+  };
+});

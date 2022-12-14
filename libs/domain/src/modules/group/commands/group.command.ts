@@ -31,14 +31,15 @@ export const getAllGroups = command().handler(
 export const getGroupById = command(
   z.object({ id: z.string().uuid().min(1) })
 ).handler(
-  async ({ id }) => await prismaClient.group.findUnique({
-    where: { id },
-    include: {
-      _count: {
-        select: { event: true, member: true }
-      }
-    }
-  })
+  async ({ id }) =>
+    await prismaClient.group.findUnique({
+      where: { id },
+      include: {
+        _count: {
+          select: { event: true, member: true },
+        },
+      },
+    })
 );
 
 export const getGroupDetails = command(
@@ -58,8 +59,8 @@ export const getGroupDetails = command(
         select: {
           user: true,
         },
-        take: 8
-      }
+        take: 8,
+      },
     },
   });
 });
@@ -106,5 +107,29 @@ export const verifyUserIsMemberOfGroup = command(
 
   return {
     isMember: false,
+  };
+});
+
+export const verifyUserIsAdministratorOfGroup = command(
+  z.object({
+    userId: z.string().uuid().nullable(),
+    groupId: z.string().uuid(),
+  })
+).handler(async ({ groupId, userId }) => {
+  if (userId) {
+    const administratorGroup = await prismaClient.group.findFirst({
+      where: {
+        id: groupId,
+        administratorId: userId,
+      },
+    });
+
+    return {
+      isGroupAdministrator: Boolean(administratorGroup),
+    };
+  }
+
+  return {
+    isGroupAdministrator: false,
   };
 });

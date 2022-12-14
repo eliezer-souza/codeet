@@ -1,8 +1,9 @@
-import { Search, Users } from 'lucide-react';
+import { Plus, Search, Users } from 'lucide-react';
 import { GroupCommands } from '@codeet/domain';
 
 import GroupCard from '../../../components/group-card';
 import Empty from '../../../components/ui/empty';
+import Link from 'next/link';
 
 export default async function GroupsPage() {
   const groups = await GroupCommands.getAllGroups(null);
@@ -10,9 +11,19 @@ export default async function GroupsPage() {
   return (
     <section className="container flex items-center justify-center gap-6 p-8 md:py-12 lg:pt-24">
       <div className="flex flex-col items-start gap-4 md:max-w-[960px] w-full">
-        <h1 className="text-xl font-bold leading-[1.1] sm:text-2xl md:text-4xl">
-          Groups
-        </h1>
+        <div className='flex justify-between w-full items-center'>
+          <h1 className="text-xl font-bold leading-[1.1] sm:text-2xl md:text-4xl">
+            Groups
+          </h1>
+          <Link
+            href="/groups/create"
+            rel="noreferrer"
+            className="relative inline-flex h-11 items-center rounded-md border border-slate-200 bg-white px-8 py-2 font-medium text-slate-900 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          >
+            <Plus width={16} height={16} className="mr-2" />
+            Create group
+          </Link>
+        </div>
         <div className="border border-slate-300 py-2 px-3 inline-flex items-center bg-white rounded-md p-3 hover:border-slate-400 w-full h-11">
           <Search
             width={18}

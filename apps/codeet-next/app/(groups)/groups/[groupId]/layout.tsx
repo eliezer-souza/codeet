@@ -1,6 +1,7 @@
 import { GroupCommands } from '@codeet/domain';
 
 import { NavBar } from '../../../../components/group';
+import GroupActions from '../../../../components/group-actions';
 import LeaveGroup from '../../../../components/leave-group';
 import JoinGroup from '../../../../components/join-group';
 import Avatar from '../../../../components/user-avatar';
@@ -20,10 +21,17 @@ export default async function GroupDetailLayout({
 
   const { data: group } = await GroupCommands.getGroupById({ id: groupId });
 
-  const { data } = await GroupCommands.verifyUserIsMemberOfGroup({
-    groupId,
-    userId: user?.id,
-  });
+  const { data: verifyUserIsMemberOfGroup } =
+    await GroupCommands.verifyUserIsMemberOfGroup({
+      groupId,
+      userId: user?.id,
+    });
+
+  const { data: verifyUserIsAdministratorOfGroup } =
+    await GroupCommands.verifyUserIsAdministratorOfGroup({
+      groupId,
+      userId: user?.id,
+    });
 
   return (
     <section className="container flex items-center justify-center gap-6 p-8 md:py-12 lg:pt-24">
@@ -41,11 +49,16 @@ export default async function GroupDetailLayout({
                 <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-primary">
                   {group.name}
                 </h2>
-                {data?.isMember ? (
-                  <LeaveGroup groupId={groupId} />
-                ) : (
-                  <JoinGroup groupId={groupId} />
-                )}
+                <div className="flex gap-6">
+                  {verifyUserIsMemberOfGroup?.isMember ? (
+                    <LeaveGroup groupId={groupId} />
+                  ) : (
+                    <JoinGroup groupId={groupId} />
+                  )}
+                  {verifyUserIsAdministratorOfGroup?.isGroupAdministrator && (
+                    <GroupActions groupId={groupId} />
+                  )}
+                </div>
               </div>
               <span className="text-sm text-slate-400 mt-4">
                 {group.description}

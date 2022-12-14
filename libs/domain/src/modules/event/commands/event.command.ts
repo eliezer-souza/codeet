@@ -8,7 +8,7 @@ export const createEvent = command(
   z.object({
     name: z.string().min(1),
     details: z.string().min(1),
-    date: z.date(),
+    date: z.string(),
     venue: z.object({
       street: z.string().min(1),
       // number: z.number().min(1),
@@ -25,7 +25,7 @@ export const createEvent = command(
         id: uuidv4(),
         name,
         details,
-        date,
+        date: new Date(date).toISOString(),
         venue,
         groupId,
       },

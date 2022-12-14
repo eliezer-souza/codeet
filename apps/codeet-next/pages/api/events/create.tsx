@@ -16,7 +16,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       });
 
       if (!success) {
-        return res.status(422).json(errors);
+        return res.status(400).json(errors);
       }
 
       return res.status(201).end(JSON.stringify(data));

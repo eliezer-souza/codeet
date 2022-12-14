@@ -133,3 +133,24 @@ export const verifyUserIsAdministratorOfGroup = command(
     isGroupAdministrator: false,
   };
 });
+
+export const editGroup = command(
+  z.object({
+    id: z.string().uuid().min(1),
+    name: z.string().min(1),
+    description: z.string().min(1),
+    details: z.string().min(1),
+  })
+).handler(
+  async ({ id, name, description, details }) =>
+    await prismaClient.group.update({
+      data: {
+        name,
+        description,
+        details,
+      },
+      where: {
+        id,
+      }
+    })
+);
